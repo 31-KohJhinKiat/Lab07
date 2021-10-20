@@ -32,7 +32,7 @@ public class Player : MonoBehaviour
 
         if(transform.position.y <= -8 || transform.position.y >= 8)
         {
-            SceneManager.LoadScene("LoseScene");
+            GameManager.thisManager.GameOver();
         }
             
     }
@@ -41,7 +41,7 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.tag.Equals("obstacle"))
         {
-            SceneManager.LoadScene("LoseScene");
+            GameManager.thisManager.GameOver();
 
         }
     }

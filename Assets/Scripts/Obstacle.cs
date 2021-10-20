@@ -12,7 +12,7 @@ public class Obstacle : MonoBehaviour
     {
         if (transform.position.x <= -8)
         {
-            //GameManager.thisManager.UpdateScore();
+            GameManager.thisManager.UpdateScore(1);
             Destroy(gameObject);
         }
         else
