@@ -7,12 +7,17 @@ using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
     private Animation thisAnimation;
-    public int speed;
+    public float speed;
+    public Vector3 jump;
+    public float jumpForce;
+    Rigidbody rb;
 
     void Start()
     {
         thisAnimation = GetComponent<Animation>();
         thisAnimation["Flap_Legacy"].speed = 3;
+        rb = GetComponent<Rigidbody>();
+        jump = new Vector3(0.0f, 2.0f, 0.0f);
     }
 
     void Update()
@@ -20,15 +25,25 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             thisAnimation.Play();
-            transform.position += transform.up * speed * Time.deltaTime;
+            rb.AddForce(jump * jumpForce, ForceMode.Impulse);
             print("fly");
 
         }
 
-        if(transform.position.y <= -7 || transform.position.y >= 7)
+        if(transform.position.y <= -8 || transform.position.y >= 8)
         {
             SceneManager.LoadScene("LoseScene");
         }
             
     }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag.Equals("obstacle"))
+        {
+            SceneManager.LoadScene("LoseScene");
+
+        }
+    }
+
 }
